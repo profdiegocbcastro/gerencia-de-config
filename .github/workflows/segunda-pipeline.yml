@@ -1,5 +1,5 @@
 name: Segunda pipeline
-run-name: Segunda pipeline executada por ${ { github.actor } }
+run-name: Segunda pipeline executada por ${{ github.actor }}
 
 on:
   push:
