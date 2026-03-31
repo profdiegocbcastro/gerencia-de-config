@@ -62,6 +62,12 @@ jobs:
     steps:
       - name: Verificar Quality Gate
         uses: SonarSource/sonarcloud-github-action@v2
+        with:
+          projectBaseDir: ./segunda-pipeline
+          args: >
+            -Dsonar.projectKey=gerencia-de-config
+            -Dsonar.organization=profdiegocbcastro
+            -Dsonar.qualitygate.wait=true
         timeout-minutes: 5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
