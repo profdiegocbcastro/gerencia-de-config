@@ -1,0 +1,59 @@
+services:
+  go:
+    build: ./go
+    ports:
+      - "8081:8081"
+
+  java:
+    build: ./java
+    ports:
+      - "8082:8082"
+
+  js:
+    build: ./js
+    ports:
+      - "8083:8083"
+
+  php:
+    build: ./php
+    ports:
+      - "8084:8084"
+
+  postgresql:
+    build: ./postgresql
+    environment:
+      POSTGRES_DB: appdb
+      POSTGRES_USER: appuser
+      POSTGRES_PASSWORD: apppass
+    ports:
+      - "8085:5432"
+
+  python:
+    build: ./python
+    ports:
+      - "8086:8086"
+
+  csharp:
+    build: ./csharp
+    ports:
+      - "8087:8087"
+
+  rust:
+    build: ./rust
+    ports:
+      - "8088:8088"
+
+  kotlin:
+    build: ./kotlin
+    ports:
+      - "8089:8089"
+
+  deno:
+    build: ./deno
+    ports:
+      - "8090:8090"
+
+  lua:
+    build: ./lua
+    ports:
+      - "8091:8091"
