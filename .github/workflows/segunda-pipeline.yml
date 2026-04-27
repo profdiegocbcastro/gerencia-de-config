@@ -39,7 +39,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: false
-          context: ./segunda-pipeline
+          context: ./pipelines/segunda-pipeline
           file: segunda-pipeline/dockerfile
           tags: ${{ secrets.DOCKERHUB_USER }}/segunda-pipeline:latest
 
@@ -75,7 +75,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          context: ./segunda-pipeline
+          context: ./pipelines/segunda-pipeline
           file: segunda-pipeline/dockerfile
           tags: ${{ secrets.DOCKERHUB_USER }}/segunda-pipeline:v${{ github.run_number }}
 

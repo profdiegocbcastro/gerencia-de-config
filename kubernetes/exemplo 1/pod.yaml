@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: node-app
+  labels:
+    app: node-app
+spec:
+  imagePullSecrets:
+    - name: dockerhub-secret
+  containers:
+    - name: node
+      image: diegocbcastroo/node-app-exemplo:1.0
+      ports:
+        - containerPort: 3000

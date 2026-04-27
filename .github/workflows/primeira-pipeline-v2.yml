@@ -15,6 +15,6 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ./primeira-pipeline
-          file: ./primeira-pipeline/dockerfile
+          file: ./pipelines/primeira-pipeline/dockerfile
           push: false
           tags: minha-imagem:latest
