@@ -1,9 +1,9 @@
 apiVersion: apps/v1
-kind: ReplicaSet
+kind: Deployment
 metadata:
-  name: node-rs
+  name: node-deployment
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: node-app
@@ -14,4 +14,6 @@ spec:
     spec:
       containers:
         - name: node
-          image: diegocbcastroo/node-app-deno:1.0
+          image: diegocbcastroo/node-pod-demo:1.0
+          ports:
+            - containerPort: 3000
