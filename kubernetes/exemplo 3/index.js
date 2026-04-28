@@ -6,8 +6,7 @@ const app = express();
 app.get('/', (req, res) => {
     res.send({
         mensagem: "Load Balancer funcionando 🚀",
-        pod: os.hostname(),
-        horario: new Date().toISOString()
+        pod: os.hostname()
     });
 });
 
