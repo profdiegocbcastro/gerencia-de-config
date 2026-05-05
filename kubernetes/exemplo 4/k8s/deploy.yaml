@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-env-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-env-demo
+  template:
+    metadata:
+      labels:
+        app: node-env-demo
+    spec:
+      containers:
+        - name: node-app
+          image: diegocbcastroo/node-env-var:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: APP_NAME
+              value: "Minha aplicação no Kubernetes"
+            - name: ENVIRONMENT
+              value: "produção"
