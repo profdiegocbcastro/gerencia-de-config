@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-exemplo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: api-exemplo
+  template:
+    metadata:
+      labels:
+        app: api-exemplo
+    spec:
+      containers:
+        - name: api
+          image: nginx:1.25
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80

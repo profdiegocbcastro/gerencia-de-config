@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: restart-policy-exemplo
+spec:
+  restartPolicy: Always
+  containers:
+    - name: app
+      image: nginx:1.25
+      ports:
+        - containerPort: 80
