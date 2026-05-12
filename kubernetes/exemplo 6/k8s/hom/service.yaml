@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: react-orange-service
+  namespace: homolog
+
+spec:
+  selector:
+    app: react-orange
+
+  ports:
+    - port: 80
+      targetPort: 3000
+
+  type: ClusterIP

@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: react-orange
+  namespace: homolog
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: react-orange
+
+  template:
+    metadata:
+      labels:
+        app: react-orange
+
+    spec:
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: ambiente
+                    operator: In
+                    values:
+                      - homolog
+      containers:
+        - name: react-orange
+
+          image: diegocbcastroo/react-k8s-orange:v1
+
+          ports:
+            - containerPort: 3000
+
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+
+            limits:
+              cpu: "500m"
+              memory: "512Mi"

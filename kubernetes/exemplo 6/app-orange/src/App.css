@@ -1,0 +1,13 @@
+.container {
+  background-color: #d56b3a;
+  color: white;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  font-family: Arial;
+}
