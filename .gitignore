@@ -6,3 +6,27 @@ __pycache__/
 
 APIs para exercícios/api-python/dockerfile
 APIs para exercícios/api-python/compose.yml
+
+*.tfstate
+*.tfstate.*
+crash.log
+
+.terraform/
+.terraform.lock.hcl
+
+*.tfplan
+
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+*.tfvars
+*.tfvars.json
+
+*.tfstate.backup
+*.tfstate.lock.info
+
+.vscode/
+.idea/
+.DS_Store
