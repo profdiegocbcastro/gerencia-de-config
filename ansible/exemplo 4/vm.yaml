@@ -1,0 +1,41 @@
+- name: Criar VM no Azure com Ansible
+  hosts: localhost
+  connection: local
+  collections:
+    - azure.azcollection
+
+  tasks:
+
+    - name: Criar grupo de recursos
+      azure_rm_resourcegroup:
+        name: rg-ansible-demo
+        location: eastus
+
+    - name: Criar rede virtual
+      azure_rm_virtualnetwork:
+        resource_group: rg-ansible-demo
+        name: vnet-ansible
+        address_prefixes: "10.0.0.0/16"
+
+    - name: Criar subnet
+      azure_rm_subnet:
+        resource_group: rg-ansible-demo
+        name: subnet-ansible
+        address_prefix: "10.0.1.0/24"
+        virtual_network: vnet-ansible
+
+    - name: Criar VM
+      azure_rm_virtualmachine:
+        resource_group: rg-ansible-demo
+        name: vm-ansible
+        vm_size: Standard_B1s
+        admin_username: azureuser
+        ssh_password_enabled: false
+
+        network_interfaces: nic-ansible
+
+        image:
+          offer: UbuntuServer
+          publisher: Canonical
+          sku: "22_04-lts"
+          version: latest

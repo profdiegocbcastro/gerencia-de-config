@@ -1,0 +1,32 @@
+- name: Configurar Nginx no Azure
+
+  hosts: azure
+  become: true
+
+  tasks:
+
+    - name: Atualizar apt
+      raw: apt update
+
+    - name: Instalar python3-apt
+      raw: apt install -y python3-apt
+
+    - name: Instalar nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Copiar html
+      copy:
+        src: index.html
+        dest: /var/www/html/index.html
+
+    - name: Reiniciar nginx
+      service:
+        name: nginx
+        state: restarted
+      register: nginx_restart
+
+    - name: Confirmar reinício
+      debug:
+        var: nginx_restart.state
