@@ -1,0 +1,80 @@
+- name: Deployar API Hello World
+  hosts: api_server
+  become: true
+
+  tasks:
+    - name: Atualizar apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Instalar curl
+      apt:
+        name: curl
+        state: present
+
+    - name: Adicionar repositorio Node.js 20
+      shell: curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+      args:
+        creates: /etc/apt/sources.list.d/nodesource.list
+
+    - name: Instalar Node.js
+      apt:
+        name: nodejs
+        state: present
+        update_cache: yes
+
+    - name: Criar diretorio da aplicacao
+      file:
+        path: /opt/api
+        state: directory
+        mode: '0755'
+
+    - name: Copiar arquivos da API
+      copy:
+        src: app/
+        dest: /opt/api/
+
+    - name: Instalar dependencias npm
+      shell: npm install --production
+      args:
+        chdir: /opt/api
+
+    - name: Criar servico systemd
+      copy:
+        content: |
+          [Unit]
+          Description=Hello World API
+          After=network.target
+
+          [Service]
+          Type=simple
+          User=ubuntu
+          WorkingDirectory=/opt/api
+          ExecStart=/usr/bin/node api.js
+          Restart=on-failure
+
+          [Install]
+          WantedBy=multi-user.target
+        dest: /etc/systemd/system/api.service
+
+    - name: Habilitar e iniciar servico
+      systemd:
+        name: api
+        daemon_reload: yes
+        enabled: yes
+        state: started
+
+    - name: Aguardar API iniciar
+      wait_for:
+        port: 5000
+        delay: 2
+        timeout: 30
+
+    - name: Verificar API
+      shell: curl -s http://localhost:5000/health
+      register: response
+
+    - name: Mostrar resposta
+      debug:
+        var: response.stdout

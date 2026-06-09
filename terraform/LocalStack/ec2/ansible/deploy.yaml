@@ -1,0 +1,41 @@
+- name: Deployar API na EC2
+  hosts: api_server
+  become: true
+
+  tasks:
+
+    - name: Criar diretorio da aplicacao
+      file:
+        path: /opt/api
+        state: directory
+
+    - name: Copiar arquivos da API
+      copy:
+        src: app/
+        dest: /opt/api/
+
+    - name: Instalar dependencias npm
+      shell: npm install
+      args:
+        chdir: /opt/api
+
+    - name: Iniciar API em background
+      shell: node api.js >> /var/log/api.log 2>&1
+      args:
+        chdir: /opt/api
+      async: 1000
+      poll: 0
+
+    - name: Aguardar API iniciar
+      wait_for:
+        port: 5000
+        delay: 2
+        timeout: 30
+
+    - name: Verificar API
+      shell: curl -s http://localhost:5000/health
+      register: response
+
+    - name: Mostrar resposta
+      debug:
+        var: response.stdout
