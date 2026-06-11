@@ -4,14 +4,14 @@
 
 Cada aluno deve selecionar **um projeto já existente** de autoria própria ou open source para aplicar os requisitos de infraestrutura e DevOps deste trabalho. São aceitas as seguintes origens:
 
-- Projeto desenvolvido na disciplina de **Arquitetura de software, Engenharia de software** (ou equivalente).
+- Projeto desenvolvido na disciplina de **Arquitetura de software, Engenharia de software, Programação web** (ou equivalente).
 - Projeto pessoal hospedado no seu GitHub.
 - Aplicação **open source** de terceiros que você tenha interesse em usar como base.
 
 ### Critérios obrigatórios para o projeto escolhido
 
 1. O repositório Git deve ter sido **criado antes de 11/06/2026** (data de postagem deste trabalho). Repositórios criados após essa data serão desconsiderados.
-2. O projeto deve possuir **no mínimo duas APIs** e **pelo menos um banco de dados**.
+2. O projeto deve possuir **no mínimo duas aplicações** (dois microsserviços ou um front e um back) e **pelo menos um banco de dados**.
 3. O repositório **não deve conter nenhum dos artefatos de DevOps listados nos requisitos técnicos** (Dockerfiles, manifestos Kubernetes, arquivos Terraform, playbooks Ansible, pipelines CI/CD, etc.).
 4. Dois alunos não podem escolher o mesmo repositório
 
