@@ -1,0 +1,26 @@
+name: Pipeline com Ansible
+run-name: Pipeline Ansible executada por ${{ github.actor }}
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Instalar Ansible
+        run: pip install ansible
+
+      - name: Deploy via Ansible
+        run: ansible-playbook ansible/ci_cd/playbooks/deploy.yml
+        env:
+          DEPLOY_HOOK_URL: ${{ secrets.RENDER_DEPLOY_HOOK }}
+          APP_DIR: ./segunda-pipeline

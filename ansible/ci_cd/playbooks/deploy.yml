@@ -1,0 +1,31 @@
+- name: Deploy API JS via Deploy Hook
+  hosts: localhost
+  connection: local
+
+  vars:
+    deploy_hook_url: "{{ lookup('env', 'DEPLOY_HOOK_URL') }}"
+    app_dir: "{{ lookup('env', 'APP_DIR') | default('.') }}"
+
+  tasks:
+
+    - name: Instalar dependências
+      command: npm install
+      args:
+        chdir: "{{ app_dir }}"
+
+    - name: Build da aplicação
+      command: npm run build
+      args:
+        chdir: "{{ app_dir }}"
+
+    - name: Disparar Deploy Hook
+      uri:
+        url: "{{ deploy_hook_url }}"
+        method: POST
+        status_code: [200, 201, 204]
+        timeout: 30
+      register: deploy_response
+
+    - name: Confirmar Deploy
+      debug:
+        msg: "Deploy disparado com sucesso. HTTP: {{ deploy_response.status }}"

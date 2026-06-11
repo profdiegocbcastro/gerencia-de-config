@@ -1,0 +1,15 @@
+stages:
+  - deploy
+
+deploy:
+  image: python:3.11-slim
+  stage: deploy
+  before_script:
+    - pip install ansible --quiet
+  script:
+    - ansible-playbook ansible/ci_cd/playbooks/deploy.yml
+  variables:
+    DEPLOY_HOOK_URL: $RENDER_DEPLOY_HOOK
+    APP_DIR: ./segunda-pipeline
+  only:
+    - main
