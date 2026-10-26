@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: carga
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: carga
+  template:
+    metadata:
+      labels:
+        app: carga
+    spec:
+      containers:
+        - name: carga
+          image: busybox:1.36
+          command: ["sh", "-c", "while true; do wget -q -O- http://api/cpu; done"]
